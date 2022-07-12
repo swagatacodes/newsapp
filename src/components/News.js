@@ -12,11 +12,11 @@ const News = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
-    
+
     const capitalize_first_letter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    
+
 
     const updateNews = async () => {
         props.setProgress(10)
@@ -59,12 +59,16 @@ const News = (props) => {
         setTotalResults(jsonData.totalResults)
     }
 
+
     return (
         <div className='container my-3 text-center'>
-            <h2 className='mb-4' style={{marginTop:"80px"}}>News Headlines from {props.category}</h2>
+            <h2 className='mb-4' style={{ marginTop: "80px" }}>News Headlines from {props.category}</h2>
             {loading && <Spinner />}
 
             <div className='container'>
+
+
+
                 <div className='row'>
                     {!loading && articles.map((element) => {
                         return <div className='col-md-3' key={element.url}>
@@ -75,7 +79,7 @@ const News = (props) => {
                     })}
                 </div>
                 <InfiniteScroll
-                
+
                     dataLength={articles.length} //This is important field to render the next data
                     next={fetchMoreNews}
                     hasMore={articles.length < totalResults}
@@ -90,13 +94,8 @@ const News = (props) => {
                         <button disabled={page + 1 > (Math.ceil(totalResults / props.pageSize))} type="button" className="btn btn-dark" onClick={nextpage}>Next &rarr;</button>
                     </div>
                     : ''} */}
-
-
-
         </div>
     )
-
-
 }
 
 News.defaultpropTypes = {
